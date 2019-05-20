@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+<title>Answer Bot</title>
+<!-- Meta tag Keywords -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="text/html; charset=utf-8" />
+    
+<link href="/static/css/bootstrap.css" rel="stylesheet" />
+<meta name="keywords" content=""/>
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+    function Search() {
+        var w1 = '<div class="progress" style="width:900px">'+
+        '<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: 0%">'+
+        'Resolving, please wait...'+
+        '</div>'+
+        '</div>';
+        $('#progress1').html(w1);
+        var i = 0;
+        setInterval(function(){
+            $('.progress-bar').css("width",i+"%");
+            if (i<100) {i++;}
+        },100);
+        
+        var query = document.getElementById("query1").value;
+        if (query == ''|| query == undefined || query == null || query == '/') {
+            return false;
+        };
+        $.ajax({
+            type: "POST",
+            url: "/index" ,
+            data: $('#form1').serialize(),
+            dataType: "json",
+            timeout:40000,
+            success: function (result) {
+                var dataObj = result["info"];
+//                 var w2 = '<div class="panel panel-default">'+
+//                     '<div class="panel-heading">'+
+//                     'The Answer is :'+
+//                     '</div>'+
+//                     '<div class="panel-body">' + dataObj +
+//                     '</div>'+
+//                     '</div>';
+                var w2 = '<div class="panel panel-default">'+
+                    '<div class="panel-heading">The Answer is: </div>'+
+                    '<ul class="list-group">'+
+                        '<li class="list-group-item">'+
+                        '<span class="badge"><a href="https://stackoverflow.com/questions/'+ dataObj[0].id +'" style="color:white">Relevant Question</a></span>'+
+                        dataObj[0].string + '</li>'+
+                        '<li class="list-group-item">'+
+                        '<span class="badge"><a href="https://stackoverflow.com/questions/'+ dataObj[1].id +'" style="color:white">Relevant Question</a></span>'+
+                        dataObj[1].string + '</li>'+
+                        '<li class="list-group-item">'+
+                        '<span class="badge"><a href="https://stackoverflow.com/questions/'+ dataObj[2].id +'" style="color:white">Relevant Question</a></span>'+
+                        dataObj[2].string + '</li>'+
+                        '<li class="list-group-item">'+
+                        '<span class="badge"><a href="https://stackoverflow.com/questions/'+ dataObj[3].id +'" style="color:white">Relevant Question</a></span>'+
+                        dataObj[3].string + '</li>'+
+                        '<li class="list-group-item">'+
+                        '<span class="badge"><a href="https://stackoverflow.com/questions/'+ dataObj[4].id +'" style="color:white">Relevant Question</a></span>'+
+                        dataObj[4].string + '</li>'+
+                    '</ul></div>'
+                $('#result1').html(w2);
+                
+            },
+            error : function() {
+                alert("ERROR");
+            }
+        });
+    }
+	addEventListener("load", function () {
+		setTimeout(hideURLbar, 0);
+	}, false);
+
+	function hideURLbar() {
+		window.scrollTo(0, 1);
+	}
+    function getKey(){
+    	if(event.keyCode==13){
+            Search();
+        }
+	}
+</script>
+<!-- Meta tag Keywords -->
+
+<!-- css files -->
+<link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all" />
+<!-- Style-CSS -->
+<!-- //css files -->
+
+<!-- web-fonts -->
+<!-- <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i&amp;subset=latin-ext,vietnamese"
+	rel="stylesheet"> -->
+<!-- //web-fonts -->
+</head>
+
+<body>
+<!-- title -->
+<h1>Answer Bot</h1>
+<!-- //title -->
+
+<!-- content -->
+<div class="sub-main-w3">
+	<form id="form1" action="##" method="post">
+		<p>Enter your query below to automated generate answer summary</p>
+		<div class="form-style-agile">
+			<input placeholder="Enter your Query" name="query" type="text" required="" id="query1" onkeypress="getKey();">
+        <input style='display:none' />
+			<input type="button" value="Submit" onclick="Search()">
+		</div>
+	</form>
+</div>
+<div align="center">
+    <div id="progress1" align="center" style="width:900px"></div>
+    <div id="result1" align="left" style="width:900px"></div>
+    <br>
+    <div class="panel panel-default" align="left" style="width:900px">
+      <div class="panel-heading">Query Example: </div>
+      <ul class="list-group">
+        <li class="list-group-item">Why the methods in object class are protected</li>
+        <li class="list-group-item">Differences between wait() and sleep()?</li>
+        <li class="list-group-item">How to check whether a class exists?</li>
+        <li class="list-group-item">Simple way to repeat a string in java?</li>
+        <li class="list-group-item">Why static fields are not initialized in time?</li>
+      </ul>
+    </div>
+</div>
+
+
+<!-- //content -->
+
+<!-- copyright -->
+<div class="copyright-w3ls">
+	<p>Tool demo for Answerbot, by why.</p>
+</div>
+<!-- //copyright -->
+
+</body>
+
+</html>

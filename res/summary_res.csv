@@ -1,0 +1,16 @@
+query,summary
+bufferedreader read bytes,"so if you want to read integers, use inputstream not reader. inputstream has int read(byte[] buf, int offset, int length) -- bytes are much more reliably cast back and forth from int than chars.
+you're over-interpreting the answer you cited. readobject() doesn't know how many bytes it will read, ahead of time, but once it starts reading it is just parsing an input stream according to a protocol, that consists of tags, primitive values, and objects, which in turn consist of tags, primitive values, and other objects. it doesn't have to know ahead of time. consider the similar-ish case of xml. you don't know how long the document will be ahead of time, or each element, but you know when you've read it all, because the protocol tells you.
+it's important to understand that bufferedreader and filereader are examples of readers. you might not have covered polymorphism in your programming education yet, so when you do, remember this. it means that if you have code which uses filereader -- but only the aspects of it that conform to reader -- then you can substitute a bufferedreader and it will work just the same.
+however, think about how a bufferedreader wrapped around a filereader will work. the first time you call bufferedreader.read(), it will call filereader.read(buffer) to fill its buffer. then it will cast the first char of the buffer back to an int, and return that.
+you could try"
+write logs display realtime swing application,"which will create a text pane for you (-debug parameter), as well as put them in a log file for you.
+you should read about mvc pattern threads. if you google there is an abundance of articles to study
+i suggest using a simple system.out.println() call and then running your application like this:
+you should create a separate thread to wait/handle the network connections.
+after embedding of mapview to your application, library gives you access to map object, that has methods for both map positioning and zooming."
+maven pomeditor dependency graph missing,"if the dependency graph feature of m2eclipse doesn't cover your needs, maybe have a look at the maven graph plugin and in particular its graph:reactor goal.
+this has been removed from m2e 1.0 (previously it was available if you selected 'show advanced editors', but that option is now gone too). the developers behind it have stated that the dependency graph never worked that well with more than a handful of dependencies and the dependency hierarchy view works better anyway.
+there's no maven command to accomplish this. you need to check which classes are causing noclassdeffounderror, figure out the dependency (google) - which jars they are shipped in, and add them with the runtime scope in your pom.xml.
+the answer you linked to says that you should look for a version conflict between spring-core and spring-asm.
+the dependency graph is still available! at least in indigo and helios-sr2 you can activate the graph in the eclipse settings: maven - pom editor - show advanced tabs in the pom editor."
