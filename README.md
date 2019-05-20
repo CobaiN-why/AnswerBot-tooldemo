@@ -92,3 +92,17 @@ ALTER TABLE java_ans ADD INDEX pid2(PostTypeId, ParentId);
 ```odpsql
 INSERT INTO answerbot.java_ans select * from `05-Sep-2018-SO`.posts where PostTypeId = 2 AND ParentId in (select Id from `05-Sep-2018-SO`.posts where Tags like '%<java>%' and PostTypeId = 1);
 ```
+
+## Data preparation
+
+1. run src/data/_1_analysis_postlink.py
+2. run src/data/_2_build_repo.py
+3. run src/_1_question_retrieval/_1_preprocessing/build_corpus.py
+4. run src/_1_question_retrieval/_2_word2vec_model/buildWord2VectorModel.py
+
+## Configuration
+
+
+1. Configure your domain binding on Nginx
+2. Modify Uwsgi.ini according to the Config of Nginx
+3. Modify and run ./start.sh
