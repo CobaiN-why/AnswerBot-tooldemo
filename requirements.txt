@@ -23,7 +23,7 @@ Jinja2==2.10
 jmespath==0.9.4
 MarkupSafe==1.1.1
 nltk==3.4.5
-numpy==1.13.3
+numpy==1.22.0
 pycparser==2.19
 PyMySQL==0.9.3
 python-dateutil==2.8.0
